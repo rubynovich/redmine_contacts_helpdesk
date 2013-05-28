@@ -1,0 +1,25 @@
+<%= error_messages_for 'helpdesk_settings' %>
+
+<% if @project.module_enabled?(:contacts_module) && @project.module_enabled?(:issue_tracking) %>
+  <%= form_tag({:controller => :helpdesk, :action => :save_settings, :project_id => @project, :tab => 'helpdesk'}, :method => :put, :class => "tabular", :multipart => true, :id => 'helpdesk_settings') do %> 
+
+  <div class="splitcontentleft">
+    <h3><%=l(:label_helpdesk)%></h3>
+    <%= render :partial => 'projects/settings/helpdesk_general' %>
+  </div>
+
+  <div class="splitcontentright">
+    <h3><%=l(:label_helpdesk_server_settings)%></h3>
+    <%= render :partial => 'projects/settings/helpdesk_server' %>
+  </div>
+
+  <div style="clear:both;"></div>
+
+  <%= submit_tag l(:button_save) %>
+
+  <% end %>
+
+<% else %>
+  <p class="nodata"><%= l(:label_helpdesk_enable_modules) %></p>
+<% end %>
+
